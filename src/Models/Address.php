@@ -275,7 +275,7 @@ class Address extends Model
                 $segments[] = country($address->country_code)->getName();
 
                 $query = str_replace(' ', '+', implode(', ', $segments));
-                $geocode = json_decode(file_get_contents("https://maps.google.com/maps/api/geocode/json?address={$query}&sensor=false"));
+                $geocode = json_decode(file_get_contents("https://maps.google.com/maps/api/geocode/json?key=".env('GOOGLE_API_KEY')."address={$query}&sensor=false"));
 
                 if (count($geocode->results)) {
                     $address->latitude = $geocode->results[0]->geometry->location->lat;
