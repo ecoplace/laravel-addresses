@@ -51,7 +51,7 @@
         "illuminate/console": "^7.0.0",
         "illuminate/database": "^7.0.0",
         "illuminate/support": "^7.0.0",
-        "jackpopp/geodistance": "^1.2.0",
+        "jackpopp/geodistance": "dev-cb-custom",
         "rinvex/laravel-cacheable": "^4.0.0",
         "rinvex/countries": "^7.0.0",
         "rinvex/laravel-support": "^4.0.0"
@@ -77,6 +77,12 @@
     "scripts": {
         "test": "vendor/bin/phpunit"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ecoplace/geodistance"
+        }
+    ],
     "config": {
         "sort-packages": true,
         "preferred-install": "dist",
