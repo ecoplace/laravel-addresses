@@ -282,6 +282,13 @@ class Address extends Model
                     $address->longitude = $geocode->results[0]->geometry->location->lng;
                 }
             }
+
+            if($address->is_primary){
+                $this->where('addressable_type',$address->addressable_type)
+                    ->where('addressable_id',$address->addressable_id)
+                    ->where('is_primary',true)
+                    ->update(['is_primary'=>false]);
+            }
         });
     }
 }
