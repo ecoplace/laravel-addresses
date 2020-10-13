@@ -286,6 +286,7 @@ class Address extends Model
             if($address->is_primary){
                 self::whereAddressableType($address->addressable_type)
                     ->whereAddressableId($address->addressable_id)
+                    ->where('id','!=',$address->id)
                     ->whereIsPrimary(true)
                     ->update(['is_primary'=>false]);
             }
