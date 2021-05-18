@@ -269,13 +269,13 @@ class Address extends Model
         parent::boot();
 
         static::saving(function (self $address) {
-            if (config('rinvex.addresses.geocoding') && !$address->latitude && !$address->longitude) {
+            if (config('rinvex.addresses.geocoding') && config('rinvex.addresses.google_api_key') && !$address->latitude && !$address->longitude) {
                 $segments[] = $address->street;
                 $segments[] = sprintf('%s, %s %s', $address->city, $address->state, $address->postal_code);
                 $segments[] = country($address->country_code)->getName();
 
                 $query = str_replace(' ', '+', implode(', ', $segments));
-                $geocode = json_decode(file_get_contents("https://maps.google.com/maps/api/geocode/json?key=".env('GOOGLE_API_KEY')."&address={$query}&sensor=false"));
+                $geocode = json_decode(file_get_contents("https://maps.google.com/maps/api/geocode/json?key=".config('rinvex.addresses.google_api_key')."&address={$query}&sensor=false"));
 
                 if (count($geocode->results)) {
                     $address->latitude = $geocode->results[0]->geometry->location->lat;
